@@ -20,10 +20,16 @@ export default function App({ $app }) {
       data: newState.data,
       showSuggestion: newState.showSuggestion,
       index: newState.index,
+      keyword: newState.keyword,
     });
     this.selectedLanguage.setState(newState.selectedKeywords);
     localStorage.setItem("keywords", JSON.stringify(newState.selectedKeywords));
   };
+
+  this.$header = document.createElement("h1");
+  this.$header.innerText = "Find your language!";
+  this.$header.className = "header";
+  $app.appendChild(this.$header);
 
   this.selectedLanguage = new SelectedLanguage({
     $app,

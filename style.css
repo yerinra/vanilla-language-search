@@ -1,5 +1,7 @@
 * {
   box-sizing: border-box;
+  font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande",
+    "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
 }
 
 ul {
@@ -25,6 +27,11 @@ body {
   height: 100%;
   justify-content: center;
   align-items: center;
+}
+
+.header {
+  position: absolute;
+  top: 10px;
 }
 
 .SearchInput {
@@ -69,7 +76,9 @@ body {
 }
 
 .Suggestion__item--matched {
-  background-color: #9ae6b4;
+  /* background-color: #9ae6b4; */
+  color: orangered;
+  font-weight: 700;
 }
 
 .SelectedLanguage {
@@ -92,4 +101,5 @@ body {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  cursor: pointer;
 }
