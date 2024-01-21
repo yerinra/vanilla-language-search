@@ -3,7 +3,8 @@ export default function SelectedLanguage({ $app, initialState, onClick }) {
   this.$selectedLanguage.className = "SelectedLanguage";
   $app.appendChild(this.$selectedLanguage);
 
-  this.state = initialState;
+  // this.state = initialState;
+  this.state = JSON.parse(localStorage.getItem("keywords")) || [];
   this.setState = (newState) => {
     this.state = newState;
     this.render();

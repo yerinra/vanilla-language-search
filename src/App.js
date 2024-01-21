@@ -6,7 +6,7 @@ import { fetchResult } from "./api.js";
 export default function App({ $app }) {
   this.state = {
     keyword: null,
-    selectedKeywords: [],
+    selectedKeywords: JSON.parse(localStorage.getItem("keywords")) || [],
     index: 0,
     data: [],
     showSuggestion: false,
@@ -22,6 +22,7 @@ export default function App({ $app }) {
       index: newState.index,
     });
     this.selectedLanguage.setState(newState.selectedKeywords);
+    localStorage.setItem("keywords", JSON.stringify(newState.selectedKeywords));
   };
 
   this.selectedLanguage = new SelectedLanguage({
