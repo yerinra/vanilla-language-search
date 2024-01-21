@@ -37,35 +37,41 @@ export default function App({ $app }) {
     onClick: (lang) => alert(lang),
   });
 
+  let timer;
   this.searchInput = new SearchInput({
     $app,
     initialState: this.state.keyword,
-    onFetch: async (keyword) => {
-      try {
-        if (!keyword) {
-          this.setState({
-            ...this.state,
-            keyword: null,
-            data: [],
-            showSuggestion: false,
-          });
-          document.querySelector(".Suggestion").style.display = "none";
-          return;
-        }
-
-        const res = await fetchResult(keyword);
-        if (res.length > 0) {
-          this.setState({
-            ...this.state,
-            keyword,
-            data: res,
-            showSuggestion: true,
-          });
-          document.querySelector(".Suggestion").style.display = "block";
-        }
-      } catch (err) {
-        throw new Error(err);
+    onFetch: (keyword) => {
+      if (timer) {
+        clearTimeout(timer);
       }
+      timer = setTimeout(async () => {
+        // console.log(keyword);
+        try {
+          if (!keyword) {
+            this.setState({
+              ...this.state,
+              keyword: null,
+              data: [],
+              showSuggestion: false,
+            });
+            document.querySelector(".Suggestion").style.display = "none";
+            return;
+          }
+          const res = await fetchResult(keyword);
+          if (res.length > 0) {
+            this.setState({
+              ...this.state,
+              keyword,
+              data: res,
+              showSuggestion: true,
+            });
+            document.querySelector(".Suggestion").style.display = "block";
+          }
+        } catch (err) {
+          throw new Error(err);
+        }
+      }, 200);
     },
   });
 
@@ -89,6 +95,7 @@ export default function App({ $app }) {
         // index: e.target.dataset.id,
         selectedKeywords: newSelectedKeywords,
       });
+      document.querySelector(".Suggestion").style.display = "none";
     },
   });
 }

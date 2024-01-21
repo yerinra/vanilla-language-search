@@ -59,6 +59,7 @@ export default function Suggestion({ $app, initialState, onSelect }) {
     document.addEventListener("keyup", (e) => {
       let newIdx;
       if (e.key === "Enter") {
+        if (this.state.data.length == 0) return;
         let selected = document.querySelector(".Suggestion__item--selected");
         onSelect(selected.innerText);
       }
