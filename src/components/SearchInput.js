@@ -20,6 +20,12 @@ export default function SearchInput({ $app, initialState, onFetch }) {
   this.setState = (newState) => {
     this.state = newState;
   };
+  this.$input.addEventListener("click", (e) => {
+    const input = e.target.closest(".SearchInput__input");
+    if (!input) return;
+    e.target.value = "";
+    // this.setState('')
+  });
 
   this.$input.addEventListener("keyup", (e) => {
     const actionIgnoreKeys = [

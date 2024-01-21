@@ -13,13 +13,38 @@ export default function Suggestion({ $app, initialState, onSelect }) {
     this.render();
   };
 
+  this.renderMatchedItem = (keyword, item) => {
+    if (!item.includes(keyword)) {
+      return item;
+    }
+    // 정규표현식을 이용한 방법
+    const matchedText = item.match(new RegExp(keyword, "gi"))[0];
+    return item.replace(
+      new RegExp(matchedText, "gi"),
+      `<span class="Suggestion__item--matched">${matchedText}</span>`
+    );
+  };
+
   this.render = () => {
     let idx = this.state.index;
     this.$suggestionList.innerHTML = this.state.data
-      .map((v, i) => {
-        let classname = idx == i ? "Suggestion__item--selected" : "";
-        return `<li data-id=${i} class=${classname}>${v}</li>`;
-      })
+      .map(
+        (item, index) => `
+        <li class=${
+          index === idx ? "Suggestion__item--selected" : ""
+        } data-index=${index}>${this.renderMatchedItem(
+          this.state.keyword,
+          item
+        )}</li>
+        </li> `
+      )
+      //   (v, i) => `
+      // <li class=${
+      //   idx === i ? "Suggestion__item--selected" : ""
+      // } data-index=${i}>${v}</li>
+      // `
+      // )
+
       .join("");
   };
 
@@ -34,10 +59,8 @@ export default function Suggestion({ $app, initialState, onSelect }) {
     document.addEventListener("keyup", (e) => {
       let newIdx;
       if (e.key === "Enter") {
-        // console.log("pressed enter");
         let selected = document.querySelector(".Suggestion__item--selected");
         onSelect(selected.innerText);
-        // console.log(selected.innerText);
       }
       if (e.key === "ArrowDown") {
         if (this.state.data.length !== 0) {
