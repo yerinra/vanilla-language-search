@@ -38,13 +38,6 @@ export default function Suggestion({ $app, initialState, onSelect }) {
         )}</li>
         </li> `
       )
-      //   (v, i) => `
-      // <li class=${
-      //   idx === i ? "Suggestion__item--selected" : ""
-      // } data-index=${i}>${v}</li>
-      // `
-      // )
-
       .join("");
   };
 

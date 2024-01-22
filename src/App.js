@@ -9,7 +9,6 @@ export default function App({ $app }) {
     selectedKeywords: JSON.parse(localStorage.getItem("keywords")) || [],
     index: 0,
     data: [],
-    showSuggestion: false,
   };
 
   this.setState = (newState) => {
@@ -18,7 +17,7 @@ export default function App({ $app }) {
     this.searchInput.setState(newState.keyword);
     this.suggestion.setState({
       data: newState.data,
-      showSuggestion: newState.showSuggestion,
+
       index: newState.index,
       keyword: newState.keyword,
     });
@@ -46,14 +45,13 @@ export default function App({ $app }) {
         clearTimeout(timer);
       }
       timer = setTimeout(async () => {
-        // console.log(keyword);
+        console.log(keyword);
         try {
           if (!keyword) {
             this.setState({
               ...this.state,
               keyword: null,
               data: [],
-              showSuggestion: false,
             });
             document.querySelector(".Suggestion").style.display = "none";
             return;
@@ -64,7 +62,6 @@ export default function App({ $app }) {
               ...this.state,
               keyword,
               data: res,
-              showSuggestion: true,
             });
             document.querySelector(".Suggestion").style.display = "block";
           }
@@ -79,7 +76,6 @@ export default function App({ $app }) {
     $app,
     initialState: { data: this.state.data, index: this.state.index },
     onSelect: (lang) => {
-      // const lang = e.target.innerText;
       alert(lang);
       let newSelectedKeywords;
       if (this.state.selectedKeywords.includes(lang)) {
@@ -92,7 +88,6 @@ export default function App({ $app }) {
       }
       this.setState({
         ...this.state,
-        // index: e.target.dataset.id,
         selectedKeywords: newSelectedKeywords,
       });
       document.querySelector(".Suggestion").style.display = "none";

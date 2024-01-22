@@ -9,9 +9,6 @@ export default function SearchInput({ $app, initialState, onFetch }) {
   this.$input.type = "text";
   this.$inputSection.appendChild(this.$input);
   this.$input.focus();
-  // this.$input.addEventListener("submit", (e) => {
-  //   e.preventDefault();
-  // });
   this.$inputSection.addEventListener("submit", (e) => {
     e.preventDefault();
   });
@@ -24,7 +21,6 @@ export default function SearchInput({ $app, initialState, onFetch }) {
     const input = e.target.closest(".SearchInput__input");
     if (!input) return;
     e.target.value = "";
-    // this.setState('')
   });
 
   this.$input.addEventListener("keyup", (e) => {
